@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { EndPoints } from '../Services/config';
+import axios from 'axios'
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -14,9 +15,20 @@ const Signup = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const addForminfo=async(data)=>{
+    const response=   await axios.post(`http://localhost:8200${EndPoints.userSign}`,data)
+    console.log("response",response);
+  }
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    await addForminfo(formData)
+    if (formData.email&&
+formData?.password&&formData.name&&formData.mobileNumber&&formData.userType){
 
+} 
+else{
+  alert('Please fill all the field')
+}
   };
 
   return (
